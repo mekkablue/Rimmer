@@ -77,6 +77,7 @@ class Rimmer(FilterWithDialog):
 			rim = float(Glyphs.defaults['com.mekkablue.Rimmer.rim'])
 		
 		# prepare inner part:
+		layer.decomposeCorners()
 		coreLayer = layer.copyDecomposedLayer()
 		coreLayer.removeOverlap()
 		coreLayer.addInflectionPoints()
