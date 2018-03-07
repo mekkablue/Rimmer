@@ -8,7 +8,6 @@
         <customObject id="-2" userLabel="File's Owner" customClass="Rimmer">
             <connections>
                 <outlet property="dialog" destination="1" id="kzC-yw-bol"/>
-                <outlet property="myTextField" destination="vfg-c5-0Yw" id="zWe-by-PDL"/>
                 <outlet property="paddingField" destination="vfg-c5-0Yw" id="MGY-AY-rby"/>
                 <outlet property="rimField" destination="rX3-Pg-iUB" id="kPt-9J-BPi"/>
             </connections>
