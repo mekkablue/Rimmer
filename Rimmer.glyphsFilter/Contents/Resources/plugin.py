@@ -18,6 +18,16 @@ import objc
 from GlyphsApp import *
 from GlyphsApp.plugins import *
 
+
+# This is for compatiblity with Glyphs 2.4
+try:
+	from objc import python_method
+except ImportError:
+	def python_method(arg):
+		return arg
+	objc.python_method = python_method
+
+
 class Rimmer(FilterWithDialog):
 	
 	# Definitions of IBOutlets
@@ -60,6 +70,7 @@ class Rimmer(FilterWithDialog):
 		self.update()
 	
 	# Actual filter
+	@objc.python_method
 	def filter(self, layer, inEditView, customParameters):
 		# Set defaults
 		padding = 15.0
@@ -67,9 +78,9 @@ class Rimmer(FilterWithDialog):
 		
 		if not inEditView:
 			# Called on font export, get value from customParameters
-			if customParameters.has_key('padding'):
+			if 'padding' in customParameters:
 				padding = float(customParameters['padding'])
-			if customParameters.has_key('rim'):
+			if 'rim' in customParameters:
 				rim = float(customParameters['rim'])
 		else:
 			# Called through UI, use stored value
@@ -94,7 +105,7 @@ class Rimmer(FilterWithDialog):
 		layer.paths = coreLayer.paths
 		layer.paths.extend( rimLayer.paths )
 		
-	
+	@objc.python_method
 	def offsetLayer( self, thisLayer, offset, makeStroke=False, position=0.5, autoStroke=False ):
 		offsetFilter = NSClassFromString("GlyphsFilterOffsetCurve")
 		offsetFilter.offsetLayer_offsetX_offsetY_makeStroke_autoStroke_position_error_shadow_(
@@ -112,6 +123,7 @@ class Rimmer(FilterWithDialog):
 			Glyphs.defaults['com.mekkablue.Rimmer.rim'],
 			)
 	
+	@objc.python_method
 	def __file__(self):
 		"""Please leave this method unchanged"""
 		return __file__
