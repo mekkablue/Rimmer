@@ -90,20 +90,21 @@ class Rimmer(FilterWithDialog):
 		# prepare inner part:
 		layer.decomposeCorners()
 		coreLayer = layer.copyDecomposedLayer()
-		coreLayer.removeOverlap()
-		coreLayer.addInflectionPoints()
-		coreLayer.correctPathDirection()
+		if coreLayer.paths:
+			coreLayer.removeOverlap()
+			coreLayer.addInflectionPoints()
+			coreLayer.correctPathDirection()
 		
-		# prepare rim:
-		rimLayer = coreLayer.copy()
-		self.offsetLayer( rimLayer, padding, makeStroke=False, position=0.0, autoStroke=False )
-		self.offsetLayer( rimLayer, rim, makeStroke=True, position=0.0, autoStroke=False )
+			# prepare rim:
+			rimLayer = coreLayer.copy()
+			self.offsetLayer( rimLayer, padding, makeStroke=False, position=0.0, autoStroke=False )
+			self.offsetLayer( rimLayer, rim, makeStroke=True, position=0.0, autoStroke=False )
 		
-		# clean out original layer, and add core+rim:
-		layer.components = None
-		layer.hints = None
-		layer.paths = coreLayer.paths
-		layer.paths.extend( rimLayer.paths )
+			# clean out original layer, and add core+rim:
+			layer.components = None
+			layer.hints = None
+			layer.paths = coreLayer.paths
+			layer.paths.extend( rimLayer.paths )
 		
 	@objc.python_method
 	def offsetLayer( self, thisLayer, offset, makeStroke=False, position=0.5, autoStroke=False ):
