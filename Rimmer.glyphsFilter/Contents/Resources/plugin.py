@@ -36,10 +36,18 @@ class Rimmer(FilterWithDialog):
 	rimField = objc.IBOutlet()
 	
 	def settings(self):
-		self.menuName = "Rimmer"
+		self.menuName = Glyphs.localize({
+			'en': u'Rimmer',
+			'de': u'Umrandung',
+			'zh': u'轮廓描边',
+		})
 		
 		# Word on Run Button (default: Apply)
-		self.actionButtonLabel = Glyphs.localize({'en': u'Rim', 'de': u'Erweitern'})
+		self.actionButtonLabel = Glyphs.localize({
+			'en': u'Rim',
+			'de': u'Umranden',
+			'zh': u'确定',
+		})
 		
 		# Load dialog from .nib (without .extension)
 		self.loadNib('IBdialog', __file__)
