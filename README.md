@@ -1,8 +1,7 @@
 # Rimmer
 
 This is a plugin for the [Glyphs font editor](http://glyphsapp.com/) by Georg Seifert.
-It adds rims around your glyphs. After installation, it will add the menu item *Filter > Rimmer*.
-You can set a keyboard shortcut in System Preferences.
+It adds rims around your glyphs. After installation, it will add the menu item *Filter > Rimmer* (de: *Umrandung,* zh: 🌈轮廓描边). You can set a keyboard shortcut in System Preferences.
 
 ![Rimmer in action.](Rimmer.png "Font: Hyperlipse by Schriftlabor and mucca design.")
 
