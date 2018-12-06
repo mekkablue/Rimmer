@@ -39,7 +39,7 @@ class Rimmer(FilterWithDialog):
 		self.menuName = Glyphs.localize({
 			'en': u'Rimmer',
 			'de': u'Umrandung',
-			'zh': u'轮廓描边',
+			'zh': u'🌈轮廓描边',
 		})
 		
 		# Word on Run Button (default: Apply)
