@@ -1,4 +1,5 @@
 # encoding: utf-8
+from __future__ import division, print_function, unicode_literals
 
 ###########################################################################################################
 #
@@ -17,16 +18,7 @@
 import objc
 from GlyphsApp import *
 from GlyphsApp.plugins import *
-
-
-# This is for compatiblity with Glyphs 2.4
-try:
-	from objc import python_method
-except ImportError:
-	def python_method(arg):
-		return arg
-	objc.python_method = python_method
-
+from Foundation import NSClassFromString
 
 class Rimmer(FilterWithDialog):
 	
@@ -35,6 +27,7 @@ class Rimmer(FilterWithDialog):
 	paddingField = objc.IBOutlet()
 	rimField = objc.IBOutlet()
 	
+	@objc.python_method
 	def settings(self):
 		self.menuName = Glyphs.localize({
 			'en': u'Rimmer',
@@ -53,6 +46,7 @@ class Rimmer(FilterWithDialog):
 		self.loadNib('IBdialog', __file__)
 	
 	# On dialog show
+	@objc.python_method
 	def start(self):
 		
 		# Set default value
@@ -109,22 +103,42 @@ class Rimmer(FilterWithDialog):
 			self.offsetLayer( rimLayer, rim, makeStroke=True, position=0.0, autoStroke=False )
 		
 			# clean out original layer, and add core+rim:
-			layer.components = None
 			layer.hints = None
-			layer.paths = coreLayer.paths
-			layer.paths.extend( rimLayer.paths )
+			try:
+				# GLYPHS 3
+				layer.shapes = None
+				layer.shapes = coreLayer.shapes
+				layer.shapes.extend( rimLayer.shapes )
+			except:
+				# GLYPHS 2
+				layer.components = None
+				layer.paths = coreLayer.paths
+				layer.paths.extend( rimLayer.paths )
 		
 	@objc.python_method
 	def offsetLayer( self, thisLayer, offset, makeStroke=False, position=0.5, autoStroke=False ):
 		offsetFilter = NSClassFromString("GlyphsFilterOffsetCurve")
-		offsetFilter.offsetLayer_offsetX_offsetY_makeStroke_autoStroke_position_error_shadow_(
-			thisLayer,
-			offset, offset, # horizontal and vertical offset
-			makeStroke,     # if True, creates a stroke
-			autoStroke,     # if True, distorts resulting shape to vertical metrics
-			position,       # stroke distribution to the left and right, 0.5 = middle
-			None, None )
+		try:
+			# GLYPHS 3:	
+			offsetFilter.offsetLayer_offsetX_offsetY_makeStroke_autoStroke_position_metrics_error_shadow_capStyleStart_capStyleEnd_keepCompatibleOutlines_(
+				thisLayer,
+				offset, offset, # horizontal and vertical offset
+				makeStroke,     # if True, creates a stroke
+				autoStroke,     # if True, distorts resulting shape to vertical metrics
+				position,       # stroke distribution to the left and right, 0.5 = middle
+				None, None, None, 0, 0, False )
+		except:
+			# GLYPHS 2:
+			offsetFilter.offsetLayer_offsetX_offsetY_makeStroke_autoStroke_position_error_shadow_(
+				thisLayer,
+				offset, offset, # horizontal and vertical offset
+				makeStroke,     # if True, creates a stroke
+				autoStroke,     # if True, distorts resulting shape to vertical metrics
+				position,       # stroke distribution to the left and right, 0.5 = middle
+				None, None )
 	
+	
+	@objc.python_method
 	def generateCustomParameter( self ):
 		return "%s; padding:%s; rim:%s" % (
 			self.__class__.__name__, 
