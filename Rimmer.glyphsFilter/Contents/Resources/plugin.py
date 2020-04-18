@@ -30,16 +30,22 @@ class Rimmer(FilterWithDialog):
 	@objc.python_method
 	def settings(self):
 		self.menuName = Glyphs.localize({
-			'en': u'Rimmer',
-			'de': u'Umrandung',
-			'zh': u'🌈轮廓描边',
+			'en': 'Rimmer',
+			'de': 'Umranden',
+			'fr': 'Déborder',
+			'es': 'Contornear',
+			'pt': 'Afiação',
+			'zh': '🌈轮廓描边',
 		})
 		
 		# Word on Run Button (default: Apply)
 		self.actionButtonLabel = Glyphs.localize({
-			'en': u'Rim',
-			'de': u'Umranden',
-			'zh': u'确定',
+			'en': 'Rim',
+			'de': 'Umranden',
+			'fr': 'Tracer',
+			'es': 'Aplicar',
+			'pt': 'Aplicar',
+			'zh': '确定',
 		})
 		
 		# Load dialog from .nib (without .extension)
