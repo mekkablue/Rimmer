@@ -34,7 +34,7 @@ class Rimmer(FilterWithDialog):
 			'de': 'Umranden',
 			'fr': 'Déborder',
 			'es': 'Contornear',
-			'pt': 'Afiação',
+			'pt': 'Contornar',
 			'zh': '🌈轮廓描边',
 		})
 		
