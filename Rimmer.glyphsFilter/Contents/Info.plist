@@ -13,9 +13,9 @@
 	<key>CFBundleName</key>
 	<string>Rimmer</string>
 	<key>CFBundleShortVersionString</key>
-	<string>2.0.6</string> <!-- 1.0 -->
+	<string>2.0.7</string> <!-- 1.0 -->
 	<key>CFBundleVersion</key>
-	<string>12</string> <!-- 123 -->
+	<string>13</string> <!-- 123 -->
 	<key>UpdateFeedURL</key>
 	<string>https://raw.githubusercontent.com/mekkablue/Rimmer/master/Rimmer.glyphsFilter/Contents/Info.plist</string>
 	<key>productPageURL</key>
